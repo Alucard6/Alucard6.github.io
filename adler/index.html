@@ -48,7 +48,7 @@
 	adlerKarte.addLayer(etappenGruppe);
 	
 	adlerKarte.fitBounds(etappenGruppe.getBounds());
-	L.control.layers({"OSM": osmLayer}, {"Tracks": etappenGruppe}).addTo(adlerKarte);
+
 	
 	window.onload = function () {
 	
@@ -75,6 +75,8 @@
             })
         };
             L.control.layers({
+			"OSM": osmLayer,
+			"Tracks": etappenGruppe,
             "Geoland Basemap" : layers.geolandbasemap,
             "Geoland Basemap Overlay" : layers.bmapoverlay,
             "Geoland Basemap Grau": layers.bmapgrau,
