@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Adlerweg</title>
+	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
+	<script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
+	<script src="adler_etappe1.js"></script>
+	<script src="adler_etappe2.js"></script>
+	<script src="adler_etappe3.js"></script>
+	<script src="adler_etappe4.js"></script>
+	<link rel="stylesheet" href="adler.css" />
+  </head>
+  <body>
+    <h1>Adlerweg</h1>
+	<div id="adlerkarteDiv"></div>
+	<script>
+	var adlerKarte = L.map("adlerkarteDiv");
+	var osmLayer = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap contributors</a>'
+        }).addTo(adlerKarte);
+	
+	window.onload = function () {
+	var Thunderforest_TransportDark = L.tileLayer('http://{s}.tile.thunderforest.com/transport-dark/{z}/{x}/{y}.png', {
+	attribution: '&copy; <a href="http://www.thunderforest.com/">Thunderforest</a>, &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+	
+});
+	var OpenMapSurfer_Grayscale = L.tileLayer('http://korona.geog.uni-heidelberg.de/tiles/roadsg/x={x}&y={y}&z={z}', {
+		attribution: 'Imagery from <a href="http://giscience.uni-hd.de/">GIScience Research Group @ University of Heidelberg</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+});
+var MapQuestOpen_Aerial = L.tileLayer('http://otile{s}.mqcdn.com/tiles/1.0.0/{type}/{z}/{x}/{y}.{ext}', {
+	type: 'sat',
+	ext: 'jpg',
+	attribution: 'Tiles Courtesy of <a href="http://www.mapquest.com/">MapQuest</a> &mdash; Portions Courtesy NASA/JPL-Caltech and U.S. Depart. of Agriculture, Farm Service Agency',
+	subdomains: '1234'
+});
+var map = L.map('adlerkarteDiv', {
+            layers : [layers.adlerkarteDiv],
+            center : [47.264269, 11.385312],
+            zoom : 15
+L.control.layers({
+            "OSM Forest" : layers.Thunderforest_TransportDark,
+            "OSM Grayscale" : layers.OpenMapSurfer_Grayscale,
+            "OSM Aerial" : layers.MapQuestOpen_Aerial
+        }).addTo(map)
+        L.control.scale({
+            'imperial' : false
+        }).addTo(map);
+	
+	adlerKarte.setView([47, 11], 10);
+	var etappe01 = L.geoJson(etappe01json, {
+	style: {
+			color: "red",
+			weight: 5}
+	});
+	var etappe02 = L.geoJson(etappe02json, {
+	style: {
+			color: "purple",
+			weight: 5}
+	})
+	var etappe03 = L.geoJson(etappe03json, {
+	style: {
+			color: "blue",
+			weight: 5}
+	})
+	var etappe04 = L.geoJson(etappe04json, {
+	style: {
+			color: "green",
+			weight: 5}
+	})
+	adlerKarte.addLayer(etappe01);
+	adlerKarte.fitBounds(etappe01.getBounds())
+	adlerKarte.addLayer(etappe02);
+	adlerKarte.fitBounds(etappe02.getBounds())
+	adlerKarte.addLayer(etappe03);
+	adlerKarte.fitBounds(etappe03.getBounds())
+	adlerKarte.addLayer(etappe04);
+	adlerKarte.fitBounds(etappe04.getBounds())
+	
+	</script>
+  </body>
+</html>
