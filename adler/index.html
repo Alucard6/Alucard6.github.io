@@ -86,6 +86,21 @@
         L.control.scale({
             'imperial' : false
         }).addTo(adlerKarte);}
+	var bounds = etappenGruppe.getBounds();
+	var url = 'http://www.panoramio.com/map/get_panoramas.php?set=public&from=0&to=20'
+		+'&minx='+bounds.getWest()
+		+'&miny='+bounds.getSouth()
+		+'&maxx='+bounds.getEast()
+		+'&maxy='+bounds.getNorth()
+		+'&size=mini_square&mapfilter=true&callback=zeigBilder';
+	
+	var script = document.createElement('script');
+	script.src = url;
+	document.getElementsByTagName('head')[0].appendChild(script);
+	window.zeigBilder = function() {
+	alert('fertig geladen');
+	}
+	
 	</script>
   </body>
 </html>
