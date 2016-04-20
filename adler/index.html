@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+  <meta charset="UTF-8">
     <title>Adlerweg</title>
 	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
 	<script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
@@ -13,7 +14,7 @@
   <body>
   
     <h1>Adlerweg</h1>
-	<div id="adlerkarteDiv"; style="width:1600px;height:800px"></div>
+	<div id="adlerkarteDiv" style="width:1400px;height:700px"></div>
 	<script>
 	var adlerKarte = L.map("adlerkarteDiv", { zoom : 9});
 	var osmLayer = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
@@ -41,15 +42,48 @@
 			color: "green",
 			weight: 5}
 	}) .bindPopup ('Etappe04: Nicht ganz ohne Schweiss sind die mehr als 1.300 Hoehenmeter dieser Adlerweg-Etappe zu bewaeltigen. Aber es lohnt sich! Am Ende der Strecke wartet ein besonderes Naturschauspiel: die Hundsalm-Eishoehle, eine auf knapp 1.400 Meter liegende Eis- und Tropfsteinhoehle.')
-	adlerKarte.addLayer(etappe01);
-	adlerKarte.fitBounds(etappe01.getBounds())
-	adlerKarte.addLayer(etappe02);
-	adlerKarte.fitBounds(etappe02.getBounds())
-	adlerKarte.addLayer(etappe03);
-	adlerKarte.fitBounds(etappe03.getBounds())
-	adlerKarte.addLayer(etappe04);
-	adlerKarte.fitBounds(etappe04.getBounds())
 	
+	var etappenGruppe = L.featureGroup([etappe01, etappe02, etappe03, etappe04])
+	
+	adlerKarte.addLayer(etappenGruppe);
+	
+	adlerKarte.fitBounds(etappenGruppe.getBounds());
+	L.control.layers({"OSM": osmLayer}, {"Tracks": etappenGruppe}).addTo(adlerKarte);
+	
+	window.onload = function () {
+	
+        var layers = { // http://www.basemap.at/wmts/1.0.0/WMTSCapabilities.xml
+            geolandbasemap : L.tileLayer("http://{s}.wien.gv.at/basemap/geolandbasemap/normal/google3857/{z}/{y}/{x}.png", {
+                subdomains : ['maps', 'maps1', 'maps2', 'maps3', 'maps4'],
+                attribution : 'Datenquelle: <a href="http://www.basemap.at/">basemap.at</a>'
+            }),
+            bmapoverlay : L.tileLayer("http://{s}.wien.gv.at/basemap/bmapoverlay/normal/google3857/{z}/{y}/{x}.png", {
+                subdomains : ['maps', 'maps1', 'maps2', 'maps3', 'maps4'],
+                attribution : 'Datenquelle: <a href="http://www.basemap.at/">basemap.at</a>'
+            }),
+            bmapgrau : L.tileLayer("http://{s}.wien.gv.at/basemap/bmapgrau/normal/google3857/{z}/{y}/{x}.png", {
+                subdomains : ['maps', 'maps1', 'maps2', 'maps3', 'maps4'],
+                attribution : 'Datenquelle: <a href="http://www.basemap.at/">basemap.at</a>'
+            }),
+            bmaphidpi : L.tileLayer("http://{s}.wien.gv.at/basemap/bmaphidpi/normal/google3857/{z}/{y}/{x}.jpeg", {
+                subdomains : ['maps', 'maps1', 'maps2', 'maps3', 'maps4'],
+                attribution : 'Datenquelle: <a href="http://www.basemap.at/">basemap.at</a>'
+            }),
+            bmaporthofoto30cm : L.tileLayer("http://{s}.wien.gv.at/basemap/bmaporthofoto30cm/normal/google3857/{z}/{y}/{x}.jpeg", {
+                subdomains : ['maps', 'maps1', 'maps2', 'maps3', 'maps4'],
+                attribution : 'Datenquelle: <a href="http://www.basemap.at/">basemap.at</a>'
+            })
+        };
+            L.control.layers({
+            "Geoland Basemap" : layers.geolandbasemap,
+            "Geoland Basemap Overlay" : layers.bmapoverlay,
+            "Geoland Basemap Grau": layers.bmapgrau,
+            "Geoland Basemap High DPI" : layers.bmaphidpi,
+            "Geoland Basemap Orthofoto" : layers.bmaporthofoto30cm
+        }).addTo(adlerKarte)
+        L.control.scale({
+            'imperial' : false
+        }).addTo(adlerKarte);}
 	</script>
   </body>
 </html>
