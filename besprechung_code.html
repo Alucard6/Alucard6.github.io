@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="UTF-8">
+  </head>
+
+<body>
+<script>
+/*
+var hallo = "sepp";
+hallo = 'sepp'
+alert(hallo)
+hallo = "franz";
+alert(hallo);
+*/
+
+/*
+var i = 1;
+var pi = 3.14;
+var liste = [1,2,3,4,5];
+alert(liste.length)
+alert (liste[2])
+*/
+
+var termin = {
+			"ort" : "innsbruck",
+			"zeit" : "18:00",
+			"tag" : "Mittwoch",
+			"teilnehmer" : ['Sepp','Franz','Markus','Hiasl'],
+			"stunden" : 1.5
+}
+//alert(termin.ort)
+//alert(termin.teilnehmer[0])
+
+for (i = 0; i < termin.teilnehmer.length; i += 1) {
+	//alert(termin.teilnehmer[i])
+	}
+	
+for (key in termin) {
+	
+	if (key == "tag") {
+		//alert(key + " = " + termin[key]);
+	} else if (key == "teilnehmer") {
+		//alert(termin.teilnehmer.length + " Teilnehmer dabei")
+	} else {
+		//alert('kein Tag, sondern ' + key)
+	}
+}
+
+function sagWas(message,grade) {
+	alert(grade)
+	alert(message)
+}
+sagWas("dass ich micht nicht mehr auskenne","wichtig zu wissen,");
+
+
+</script>
+  </body>
+</html>
