@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="js/plugins/routing-machine/leaflet-routing-machine.css" />
     <script src="js/plugins/routing-machine/leaflet-routing-machine.min.js"></script>
     
-	
+	<script src="nphtt_pois_geojson.js"></script>
 	
 	<script>
         window.onload = function () {
@@ -28,39 +28,7 @@
                 'imperial': false
             }).addTo(map);
 
-        
-		//variable für den ersten geklickten punkt
-		var first_point = null;
-		
-		//routing control hinzufügen und minimieren
-		var routing_control = L.Routing.control({
-			show : false
-			}).addTo(map);
-		
-		// Klicks auf Karte verarbeiten
-		map.on("click", function (event) {
-			if (first_point) {
-			//zeichnen der route
-			console.log("2.Punkt", event);
-			
-			//wegpunkt setzen und Routing Control zeigen
-			routing_control.setWaypoints([
-				first_point,
-				event.latlng
-			]);
-			routing_control.show();
-			
-			//ersten punkt wieder löschen
-			first_point = null;
-			} else {
-			
-			//Routing Control minimieren
-			routing_control.hide();
-			
-			//merken des ersten punktes
-			first_point = event.latlng;
-			console.log("1.Punkt", event);
-		}});
+        console.log(window.POIS);
 		};
 	
     </script>
